@@ -13,8 +13,10 @@ public interface DepartmentService {
 	
 	public String addDepartment(DepartmentForm departmentForm);
 	public String editDepartment(DepartmentForm departmentForm);
-	public String deleteDepartment(int departmentId);
+	
 	public List<DepartmentForm> findDepartments();
 	public DepartmentForm findDepartmentById(int deptId);
 	public String updateDepartment(DepartmentForm departmentForm);
+	public String validateDep(String depName);
+	public String deleteDepartment(String depName);
 }

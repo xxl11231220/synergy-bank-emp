@@ -16,7 +16,8 @@
                             <ul class="dropdown-menu">
                                 <li><a href="career.html">Manual Attendance</a></li>
                                 <li><a href="blog-item.html">Delete Attendance</a></li>
-                                <li><a href="faq.html">Update Attendance</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/adminAttendance">View Attendance</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/adminUpdateAttendance">Update Attendance</a></li>
                             </ul>
                         </li>
                         <li><a href="services.html">Services</a></li>
@@ -31,6 +32,8 @@
                                 <li><a href="${pageContext.request.contextPath}/admin/addLeaveReason">Add Leave Reason</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/addLeaveType">Add Leave Type</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/LeaveReason">Leave Reason</a></li>
+                               <%--  <li><a href="${pageContext.request.contextPath}/admin/registerpage">Register</a></li> --%>
+                                <li><a href="${pageContext.request.contextPath}/admin/viewHolidayCalender">View Holiday calender</a></li>
                             </ul>
                         </li>
                         <li><a href="blog.html">Blog</a></li> 
@@ -43,4 +46,16 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+           <section class="title" >
+		<div class="container">
+			<div class="row-fluid">
+				  <div class="span6">
+                    <h4>${pageTitle}</h4>
+                </div>
+                <div class="span6">
+                 
+                </div>
+			</div>
+		</div>
+	</section>
     </header>

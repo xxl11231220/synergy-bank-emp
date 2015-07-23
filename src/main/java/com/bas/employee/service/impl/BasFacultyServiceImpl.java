@@ -1,7 +1,6 @@
 package com.bas.employee.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -10,7 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bas.admin.dao.entity.HolidayEntryEntity;
+import com.bas.admin.dao.entity.FaculityDailyAttendanceReportEntity;
+import com.bas.admin.web.controller.form.FaculityDailyAttendanceReportVO;
 import com.bas.employee.dao.BasFacultyDao;
 import com.bas.employee.dao.entity.FaculityLeaveMasterEntity;
 import com.bas.employee.dao.entity.FacultyAttendStatusEntity;
@@ -31,6 +31,33 @@ public class BasFacultyServiceImpl implements BasFacultyService {
 	@Autowired
 	@Qualifier("BasFacultyDaoImpl")
 	private BasFacultyDao basFacultyDao;
+	
+	
+	@Override
+	public List<FaculityDailyAttendanceReportVO> showAttendusReportByDep(String date, String dep){
+		List<FaculityDailyAttendanceReportEntity> facList = basFacultyDao.showAttendusReportByDep(date, dep);
+		List<FaculityDailyAttendanceReportVO> fDAV = new ArrayList<FaculityDailyAttendanceReportVO>();
+		for (FaculityDailyAttendanceReportEntity faculityDailyAttendanceReportEntity : facList) {
+			FaculityDailyAttendanceReportVO facDailyAttRep = new FaculityDailyAttendanceReportVO();
+			BeanUtils.copyProperties(faculityDailyAttendanceReportEntity, facDailyAttRep);
+			fDAV.add(facDailyAttRep);
+		}				
+		return fDAV;
+	}
+
+	
+	@Override
+	public List<FaculityDailyAttendanceReportVO> showAttendusReport(String date){
+		List<FaculityDailyAttendanceReportEntity> facList = basFacultyDao.showAttendusReport(date);
+		List<FaculityDailyAttendanceReportVO> fDAV = new ArrayList<FaculityDailyAttendanceReportVO>();
+		for (FaculityDailyAttendanceReportEntity faculityDailyAttendanceReportEntity : facList) {
+			FaculityDailyAttendanceReportVO facDailyAttRep = new FaculityDailyAttendanceReportVO();
+			BeanUtils.copyProperties(faculityDailyAttendanceReportEntity, facDailyAttRep);
+			fDAV.add(facDailyAttRep);
+		}				
+		return fDAV;
+	}
+
 
 	@Override
 	public String persistFaculty(FacultyForm facultyForm) {
@@ -272,9 +299,16 @@ public class BasFacultyServiceImpl implements BasFacultyService {
 		return basFacultyDao.updateEmployee(facultyAttendStatusEntity, fid, newdate);
 	}
 
+
 	@Override
 	public String deleteAttendus(String employeeId, String attndDate) {		
 		return basFacultyDao.deleteAttendus(employeeId,attndDate);
+	}
+
+	
+	@Override
+	public List<String> selectDepartments(){
+		return basFacultyDao.selectDepartments();
 	}
 
 

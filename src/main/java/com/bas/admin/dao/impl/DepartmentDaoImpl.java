@@ -42,6 +42,21 @@ public class DepartmentDaoImpl extends JdbcDaoSupport implements DepartmentDao {
 		return num;
 	}
 
+	@Override
+	public String validateDep(String depName){
+		String sql = "SELECT EXISTS (SELECT departmentName from departments_tbl where departmentName='"+depName+"')";
+		int results = super.getJdbcTemplate().queryForObject(sql, Integer.class);
+		System.out.println(results);
+		String validate;
+		if(results!=0){
+			validate="fail";
+			
+		}else
+		{
+			validate="success";
+		}
+		return validate;
+	}
 	
 	@Override
 	public String addDepartment(DepartmentEntity departmentEntity) {
@@ -58,7 +73,16 @@ public class DepartmentDaoImpl extends JdbcDaoSupport implements DepartmentDao {
 				departmentEntity.getDescription(), new Date(), new Date(),
 				departmentEntity.getEntryBy() };
 		// firing the query
+		
+		String query = "select count(*) from departments_tbl where departmentName='"+departmentEntity.getDepartmentName();// TODO Auto-generated
+		// method stub
+         int count = super.getJdbcTemplate() .queryForInt(query);
+
+      if (count == 0){
 		super.getJdbcTemplate().update(sql, data);
+      } else {
+    	throw new IllegalArgumentException("The department is already exist");
+      }
 		return "Added";
 	}
 
@@ -69,9 +93,9 @@ public class DepartmentDaoImpl extends JdbcDaoSupport implements DepartmentDao {
 	}
 
 	@Override
-	public String deleteDepartment(int departmentId) {
-		String query = "delete from departments_tbl where departmentId=?";
-		super.getJdbcTemplate().update(query, departmentId);
+	public String deleteDepartment(String depName) {
+		String query = "delete from departments_tbl where departmentName=?";
+		super.getJdbcTemplate().update(query, depName);
 		return "deleted";
 	}
 
@@ -103,6 +127,12 @@ public class DepartmentDaoImpl extends JdbcDaoSupport implements DepartmentDao {
 		System.out.println("DAOIMPL: " + departmentEntity);
 		System.out.println(query);
 		return "success";
+	}
+
+	@Override
+	public String deleteDepartment(int departmentId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

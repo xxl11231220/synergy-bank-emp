@@ -34,10 +34,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public String validateDep(String depName){
+		return departmentDao.validateDep(depName);
+	}
 
 	@Override
-	public String deleteDepartment(int departmentId) {
-		departmentDao.deleteDepartment(departmentId);
+	public String deleteDepartment(String depName) {
+		departmentDao.deleteDepartment(depName);
 		return "success";
 	}
 

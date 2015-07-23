@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.bas.admin.dao.entity.CategoryEntity;
+import com.bas.admin.dao.entity.FaculityDailyAttendanceReportEntity;
 import com.bas.employee.dao.entity.FaculityLeaveMasterEntity;
 import com.bas.employee.dao.entity.FaculityTimeEntity;
 import com.bas.employee.dao.entity.FacultyAttendStatusEntity;
@@ -47,5 +48,9 @@ public interface BasFacultyDao {
 	public String updateEmployee(FacultyAttendStatusEntity facultyAttendStatusEntity,
 			String fid, String monthInfo);
 	public String deleteAttendus(String employeeId, String attndDate);
+	public List<String> selectDepartments();
+	public List<FaculityDailyAttendanceReportEntity> showAttendusReport(String date);
+	public List<FaculityDailyAttendanceReportEntity> showAttendusReportByDep(
+			String date, String dep);
 
 }

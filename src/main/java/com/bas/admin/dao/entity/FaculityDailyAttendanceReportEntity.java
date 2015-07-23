@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bas.admin.web.controller.form;
+package com.bas.admin.dao.entity;
 
 import java.util.Date;
 
@@ -11,8 +11,7 @@ import java.util.Date;
  * 
  * @author astha
  */
-public class FaculityDailyAttendanceReportVO {
-	
+public class FaculityDailyAttendanceReportEntity {
 
 	private int fid;
 	private String name;
@@ -77,7 +76,7 @@ public class FaculityDailyAttendanceReportVO {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public Date getCdate() {
 		return cdate;
 	}
@@ -116,7 +115,7 @@ public class FaculityDailyAttendanceReportVO {
 	}
 	@Override
 	public String toString() {
-		return "FaculityDailyAttendanceReportVO [fid=" + fid + ", name=" + name
+		return "FaculityDailyAttendanceReportVO [eid=" + fid + ", name=" + name
 				+ ", fatherName=" + fatherName + ", status=" + status
 				+ ", present=" + present + ", department=" + department
 				+ ", designation=" + designation + ", type=" + type

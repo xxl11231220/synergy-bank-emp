@@ -126,8 +126,8 @@ public class AdminReportController {
 		for (ManualAttendanceVO attendanceVO : manualAttendanceVOs) {
 			FaculityDailyAttendanceReportVO attendanceReportVO = new FaculityDailyAttendanceReportVO();
 
-			attendanceReportVO.setEid(attendanceVO.getEid());
-			attendanceReportVO.setCdate(DateUtils.convertDateIntoString(attendanceVO.getCdate()));
+			//attendanceReportVO.setEid(attendanceVO.getEid());
+			//attendanceReportVO.setCdate(DateUtils.convertDateIntoString(attendanceVO.getCdate()));
 			attendanceReportVO.setDepartment(attendanceVO.getDepartment());
 			attendanceReportVO.setDesignation(attendanceVO.getDesignation());
 			attendanceReportVO.setDetail(attendanceVO.getDetail());

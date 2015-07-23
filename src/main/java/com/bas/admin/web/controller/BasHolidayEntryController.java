@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bas.admin.service.HolidayEntryService;
+import com.bas.admin.web.controller.form.DepartmentForm;
 import com.bas.admin.web.controller.form.DesignationForm;
 import com.bas.admin.web.controller.form.HolidayEntryForm;
 import com.bas.common.constant.NavigationConstant;
@@ -35,31 +36,59 @@ public class BasHolidayEntryController {
 	@Qualifier("HolidayEntryServiceImpl")
 	private HolidayEntryService holidayEntryService;
 
-	@RequestMapping(value = "/holidayEntries.htm", method = RequestMethod.GET)
+//	@RequestMapping(value = "/holidayEntries.htm", method = RequestMethod.GET)
+//	public String findHolidayEntry(Model model) {
+//		List<HolidayEntryForm> holidayEntryForms = holidayEntryService
+//				.findHolidayEntry();
+//		model.addAttribute("holidayEntryForms", holidayEntryForms);
+//		return NavigationConstant.ADMIN_PREFIX_PAGE
+//				+ NavigationConstant.ADD_HOLIDAY_ENTRY;
+//	}
+
+	
+	@RequestMapping(value="/viewHolidayCalender", method=RequestMethod.GET)
+	public String viewHolidayCal(){
+		return NavigationConstant.ADMIN_PREFIX_PAGE+NavigationConstant.ADD_HOLIDAY_ENTRY_VIEW;
+	}
+	
+	@RequestMapping(value = "/addHolidayCalendar"  , method = RequestMethod.GET)
 	public String findHolidayEntry(Model model) {
-		List<HolidayEntryForm> holidayEntryForms = holidayEntryService
-				.findHolidayEntry();
-		model.addAttribute("holidayEntryForms", holidayEntryForms);
+//		List<HolidayEntryForm> holidayEntryForms = holidayEntryService
+//				.findHolidayEntry();
+		HolidayEntryForm holidayEntryForm = new HolidayEntryForm();
+		model.addAttribute("holidayEntryForm", holidayEntryForm);
 		return NavigationConstant.ADMIN_PREFIX_PAGE
 				+ NavigationConstant.ADD_HOLIDAY_ENTRY;
 	}
+	
+	@RequestMapping(value = "/holidayEntry", method = RequestMethod.POST)
+	public String AddDepartment(@ModelAttribute(value="holidayEntryForm")  HolidayEntryForm holiday ,Model model) {
+	
+	String message = holidayEntryService.addHolidayEntry(holiday);
+			 
+	return NavigationConstant.ADMIN_PREFIX_PAGE
+			+ NavigationConstant.ADD_HOLIDAY_ENTRY;
+}
+	
+	 
+	
+	
+	
+	
+	
+	
 
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/holidayEntry.htm", method = RequestMethod.GET)
-	public String setHolidayEntry(Model model) {
-		HolidayEntryForm holidayEntryForm = new HolidayEntryForm();
-		model.addAttribute("holidayEntryForm", holidayEntryForm);
-		model.addAttribute("buttonLabel", "Add Holiday Entry");
-		String str = findHolidayEntry(model);
-		return str;
+//	@RequestMapping(value = "/holidayEntry", method = RequestMethod.GET)
+//	public String setHolidayEntry(Model model) {
+//		HolidayEntryForm holidayEntryForm = new HolidayEntryForm();
+//		model.addAttribute("holidayEntryForm", holidayEntryForm);
+//		model.addAttribute("buttonLabel", "Add Holiday Entry");
+//		String str = findHolidayEntry(model);
+//		return str;
+//
+//	}
 
-	}
-
-	@RequestMapping(value = "/holidayEntry.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/holidayEntry1111", method = RequestMethod.POST)
 	public String submitHolidayEntry(
 			@ModelAttribute("holidayEntryForm") HolidayEntryForm holidayEntryForm,
 			@RequestParam(value ="buttonAction", required = false) String buttonAction,
@@ -82,14 +111,14 @@ public class BasHolidayEntryController {
 		return str;
 	}
 
-	@RequestMapping(value = "/deleteHolidayEntry.htm", method = RequestMethod.POST)
-	public String deleteHolidayEntry(HttpServletRequest request, Model model) {
-		String date = request.getParameter("holidayDate");
-		holidayEntryService.deleteHolidayEntry(date);
-		setHolidayEntry(model);
-		String str = findHolidayEntry(model);
-		return str;
-	}
+//	@RequestMapping(value = "/deleteHolidayEntry.htm", method = RequestMethod.POST)
+//	public String deleteHolidayEntry(HttpServletRequest request, Model model) {
+//		String date = request.getParameter("holidayDate");
+//		holidayEntryService.deleteHolidayEntry(date);
+//		setHolidayEntry(model);
+//		String str = findHolidayEntry(model);
+//		return str;
+//	}
 
 	@RequestMapping(value = "/editHolidayEntry.htm", method = RequestMethod.GET)
 	public String editHolidayEntry(HttpServletRequest request, Model model) {

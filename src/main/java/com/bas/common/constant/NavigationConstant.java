@@ -39,13 +39,15 @@ public interface NavigationConstant {
 	final public static String ADD_DESIGNATION_PAGE = "addDesignation";
 	final public static String ADD_EMPLOYEE_TYPE="addEmployeeType";
 	final public static String ADD_HOLIDAY_ENTRY="HolidayEntry";
+	final public static String ADD_HOLIDAY_CALENDAR="addHolidayCalendar";
+	final public static String ADD_HOLIDAY_ENTRY_VIEW="viewHolidayCalender";
 	final public static String SHOW_ALL_LEAVE_HISTORY="showAllLeaveHistory";
 	final public static String ADD_CATEGORY_PAGE="addCategory";
 	final public static String LEAVE_REASON="addLeaveReason";
 	final public static String LEAVE_TYPE="addLeaveType";
 	final public static String ORG_TIME_PAGE="organizationTime";
 	final public static String ADMIN_LEAVEMASTRINIT_PAGE="leaveMasterInit";
-	public static final String ADMIN_ATTENDANCE_PAGE = "adminAttendenceView";
+	public static final String ADMIN_ATTENDANCE_PAGE = "adminAttendance";
 	public static final String SHOW_ALL_PENDING_LEAVE_HISTORY = "approveLeaves";
 	public static final String SHOW_ALL_PENDING_RM_LEAVE_HISTORY = "approveRmLeaves";
 	

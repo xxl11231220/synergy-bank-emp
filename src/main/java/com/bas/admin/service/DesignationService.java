@@ -12,7 +12,7 @@ import com.bas.admin.web.controller.form.DesignationForm;
  */
 public interface DesignationService {
 	
-	public String addDesignation(DesignationForm designationForm);
+	public String addDesignation(DesignationForm designationform);
 	public String editDesignation(DesignationForm designationForm);
 	public String deleteDesignation(int designationId);
 	public List<DesignationForm> findDesignations();

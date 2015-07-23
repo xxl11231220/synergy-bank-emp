@@ -69,5 +69,10 @@
 		<url-pattern>/admin/*</url-pattern>
 	</servlet-mapping>
 	
+		<servlet-mapping>
+		<servlet-name>bas-mvc</servlet-name>
+		<url-pattern>/common/*</url-pattern>
+	</servlet-mapping>
+	
 	
 </web-app>	

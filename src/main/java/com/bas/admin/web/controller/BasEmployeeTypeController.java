@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,7 +92,9 @@ public class BasEmployeeTypeController {
 	
 	@RequestMapping(value = "/updateEmployee", method = RequestMethod.POST)
 	public @ResponseBody String editEmployeeType(@ModelAttribute(value="EmptyfacultyAttendStatusVO") FacultyAttendStatusVO facultyAttendStatusVO, 
-			HttpServletRequest request,@RequestParam(value="additionalInfo") String monthInfo, Model model) {
+			HttpServletRequest request,@RequestParam(value="additionalInfo") String monthInfo,@RequestParam(value="employeeName") String employeeName, Model model) {
+		String[] names = employeeName.split(" ");
+		String employeeId = employeeTypeService.getEmployeeId(names[0], names[1]);
 		DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = null;
@@ -103,14 +104,11 @@ public class BasEmployeeTypeController {
 			newdate = newFormat.format(date);			
 		} catch (ParseException e) {		
 			e.printStackTrace();
-		}						
-		/*System.out.println(facultyAttendStatusVO);*/
-		/*String abc = basFacultyService.insertAttendus(basFacultyService.insertData());
-		System.out.println(abc);*/
-		String message = basFacultyService.updateEmployee(facultyAttendStatusVO, "801",newdate);
+		}
+		String message = basFacultyService.updateEmployee(facultyAttendStatusVO, employeeId,newdate);
 		return message;		
 	}
-	
+		
 	@RequestMapping(value = "/deleteAttendus", method = RequestMethod.GET)
 	public @ResponseBody String deleteAttendus(HttpServletRequest request,@RequestParam(value="employeeName") String employeeName,
 			 @RequestParam(value="attndDate") String attndDate) {		
@@ -132,6 +130,8 @@ public class BasEmployeeTypeController {
 		
 		return message;
 	}
+
+
 
 
 	/*@RequestMapping(value = "/adminUpdateAttendance1", method = RequestMethod.POST)

@@ -16,5 +16,7 @@ public interface DepartmentDao {
 	public List<DepartmentEntity> findDepartments();
 	public DepartmentEntity findDepartmentById(int deptId);
 	public String updateDepartment(DepartmentEntity departmentEntity);
+	String validateDep(String depName);
+	String deleteDepartment(String depName);
 
 }

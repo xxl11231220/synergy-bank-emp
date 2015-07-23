@@ -16,53 +16,64 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>LMS |Leave Apply</title>
+
+<script src="//code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
+
+<script
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"
+	type="text/javascript"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.js"
+	type="text/javascript"></script>
+	
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+	
+<!--include jQuery -->
+<!-- <script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+	type="text/javascript"></script> -->
+
+<!-- <script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+	type="text/javascript"></script> -->
+
+<!--include jQuery Validation Plugin-->
+<!-- <script
+	src="//ajax.aspnetcdn.com/ajax/jQuery.validate/1.11.1/jquery.validate.js"
+	type="text/javascript"></script> -->
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script
+	src="${pageContext.request.contextPath}/js/vendor/bootstrap.min.js"></script>
+<!--<script src="${pageContext.request.contextPath}/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/js/BeatPicker.js"></script>-->
+
+<!-- <script
+	src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script> -->
+
+<!-- <script
+	src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/additional-methods.js"></script> -->
+<!-- <script
+	src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script> -->
+
 <%@include file="eimport.jsp"%>
+
+<style type="text/css">
+html {
+	-webkit-font-smoothing: antialiased;
+}
+</style>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.css">
 
 <script type="text/javascript">
 	$(document)
 			.ready(
 					function() {
-
-						/*  $("#leaveFrom1")
-								.datepicker(
-										{
-											minDate : 0,
-											dateFormat : 'MM/dd/yyyy',
-											showOn : 'button',
-											buttonImage : "${pageContext.request.contextPath}/images/datePickerPopup.gif",
-											buttonImageOnly : true,
-											showOtherMonths : true,
-											selectOtherMonths : true
-										}).next('button').text('').button({
-									text : false
-								});
-
-						$("#leaveTo1")
-								.datepicker(
-										{
-											minDate : 0,
-											dateFormat : 'MM/dd/yyyy',
-											showOn : 'button',
-											buttonImage : "${pageContext.request.contextPath}/images/datePickerPopup.gif",
-											buttonImageOnly : true,
-											showOtherMonths : true,
-											selectOtherMonths : true
-										}).next('button').text('').button({
-									text : false
-								}); */
-
-						$("#searchFiled").keypress(function(e) {
-							if (e.keyCode == 13) {
-								$("#searchForm").submit();
-							}
-						});
-
-						$("#applyLeaveId").click(function() {
-							var status = validate();
-							if (status) {
-								$("#faculityLeaveMasterVO").submit();
-							}
-						});
 
 						$("#description").hide();
 						$("#reason").hide();
@@ -82,19 +93,50 @@
 									} //end of result
 								});
 
-						/* $("#leaveType1")
-								.change(
-										function() {
-											if (document
-													.getElementById("leaveType1").value == "Others") {
-												$("#description").show();
+					});
+</script>
 
-											} else {
-												$("#description").hide();
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						//			$('.datepicker').datepicker();
+						$('#leaveFrom1')
+								.datepicker(
+										{
+											showOn : "button",
+											buttonText : 'Show Date',
+											buttonImage : "http://www.triconsole.com/php/calendar/calendar/images/iconCalendar.gif",
+											buttonImageOnly : true
+										});
 
-											}
+						$(".ui-datepicker-trigger").mouseover(function() {
 
-										}); */
+							$(this).css('cursor', 'pointer');
+
+						});
+					});
+</script>
+
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						//	$('.datepicker').datepicker();
+						$('#leaveTo1')
+								.datepicker(
+										{
+											showOn : "button",
+											buttonText : 'Show Date',
+											buttonImage : "http://www.triconsole.com/php/calendar/calendar/images/iconCalendar.gif",
+											buttonImageOnly : true
+										});
+
+						$(".ui-datepicker-trigger").mouseover(function() {
+
+							$(this).css('cursor', 'pointer');
+
+						});
 
 					});
 </script>
@@ -137,44 +179,6 @@
 </script>
 
 <script type="text/javascript">
-	function validate() {
-
-		var form_valid = (document.getElementById('totalDays').value == '0');
-		if (form_valid) {
-			alert('please provide valid date inputs');
-			return false;
-		}
-
-		if (document.getElementById('description').value == ''
-				&& document.getElementById('leaveType1').value == 'Others') {
-			alert("please provide a leave description");
-			return false;
-
-		}
-
-		if (document.getElementById('reason').value == ''
-				&& document.getElementById('purpose').value == 'Others') {
-			alert("please provide a leave reason");
-			return false;
-
-		}
-
-		if ($('input[name=leaveCategory]:checked').length <= 0) {
-			alert("Please select the leave category");
-			return false;
-		}
-
-		if ($('input[name=leaveMeeting]:checked').length <= 0
-				&& $('input[name=leaveCategory]:checked').val() != 'FullDay') {
-			alert("Select a valid leave meeting option");
-			return false;
-		}
-
-		return true;
-	}
-</script>
-
-<script type="text/javascript">
 	function totalLeaveCheck() {
 
 		$("#leaveFrom1").datepicker({
@@ -189,13 +193,13 @@
 
 					var leaveTo = $("#leaveTo1").val();
 					if (leaveTo.trim().length == 0) {
-						alert("Leave to date cannot be blank.");
+						//	alert("Leave to date cannot be blank.");
 						$("#leaveTo1").focus();
 						return;
 					}
 					var leaveFrom = $("#leaveFrom1").val();
 					if (leaveFrom.trim().length == 0) {
-						alert("Leave From date cannot be blank.");
+						//	alert("Leave From date cannot be blank.");
 						$("#leaveFrom1").focus();
 						return;
 					}
@@ -213,12 +217,12 @@
 								/ 1000 / 60 / 60 / 24; // days
 						if (diff > 0) {
 							$("#totalDays").val(diff);
-						} else {
-							alert("Invalid date inputs")
-							$("#leaveFrom1").focus();
-							$("#leaveFrom1").clear();
-							return false;
-						}
+						} /* else {
+																						alert("Invalid date inputs")
+																						$("#leaveFrom1").focus();
+																						$("#leaveFrom1").clear();
+																						return false;
+																					} */
 					}
 
 				});
@@ -239,12 +243,12 @@
 								/ 1000 / 60 / 60 / 24; // days
 						if (diff > 0) {
 							$("#totalDays").val(diff);
-						} else {
-							alert("Invalid date inputs")
-							$("#leaveFrom1").focus();
-							$("#leaveFrom1").clear();
-							return false;
-						}
+						} /* else {
+																						alert("Invalid date inputs")
+																						$("#leaveFrom1").focus();
+																						$("#leaveFrom1").clear();
+																						return false;
+																					} */
 					}
 
 				});
@@ -252,44 +256,207 @@
 	}
 </script>
 
+<!--  <script type="text/javascript">
+$(document).ready(function() {
+	
+/*     $('input[name="mobile"]').focusout(function(){
+    
+    	var phone = $('input[name="mobile"]').val(),
+        intRegex = ;/\(?[\d\s]{3}\)[\d\s]{3}-[\d\s]{4}$/
+    if((phone.length != 10) || (!intRegex.test(phone)))
+    {
+    	$("#mobMsg").show();
+    	$('#mobMsg').css("color","red");
+    	$("#mobMsg").html(" Invalid!!");
+         return false;
+    } else{
+    	
+    	$("#mobMsg").hide();
+    }
+    });
+ */
+    jQuery.validator.addMethod("phoneUS", function (phone_number, element) {
+    phone_number = phone_number.replace(/\s+/g, "");
+
+    return this.optional(element) || phone_number.length != 10 &&
+          phone_number.match(/[0-9 -()+]+$/);
+}, "Invalid phone number");  
+
+ 
+	 $("#leaveForm").validate(
+	        {
+	            rules: { mobile: { required: true, phoneUS: true } },
+	            messages: { mobile: { required: "required ", phoneUS: "US format " } }
+	        });   
+});
+</script> -->
+
 <script type="text/javascript">
-	function ValidateMobNumber(txtMobId) {
-
-		$('#mobile').keypress(function(event) {
-
-			if (event.which != 8 && isNaN(String.fromCharCode(event.which))) {
-				event.preventDefault(); //stop character from entering input
-				document.getElementById('mobileError').innerHTML = " Invalid";
-			} else {
-				document.getElementById('mobileValid').innerHTML = " Valid";
-
-			}
-
-		});
-	}
-</script>
-
-<style>
-.error {
-	color: red;
-	font-size: 12px;
-}
-</style>
-
-<!-- <script>
 	$(document).ready(function() {
 
-		$('#leaveForm').validate({ // initialize the plugin
+		// initialize tooltipster on text input elements
+		$('#leaveForm ff:input[type="text"]').tooltipster({
+			trigger : 'custom',
+			onlyOne : false,
+			position : 'right',
+			updateAnimation : false,
+			animation : 'grow'
+		});
+
+		/* // initialize tooltipster on radio input elements
+		$('#leaveForm ff:input[type="radio"]').tooltipster({
+			trigger : 'custom',
+			onlyOne : false,
+			position : 'top',
+			updateAnimation : false,
+			animation : 'grow'
+		}); */
+
+		// initialize validate plugin on the form
+		$('#leaveForm').validate({
+			errorPlacement : function(error, element) {
+				//$(element).tooltipster('update', $(error).text());
+				$(element).tooltipster('content', $(error).text());
+				$(element).tooltipster('show');
+			},
+			success : function(label, element) {
+				$(element).tooltipster('hide');
+			},
 			rules : {
-				mobile : {
-					phoneUS : true,
+				leaveType : {
+					required : true
+				},
+				purpose : {
+					required : true
+				},
+				reportingManager : {
+					required : true
+				},
+				leaveCategory : {
+					required : true
+				},
+				address : {
 					required : true,
+					rangelength : [ 10, 50 ]
+				},
+				mobile : {
+					required : true,
+					phoneUS : true
 
 				}
 			}
+		/* ,
+							        submitHandler: function (form) { // for demo
+							            alert('valid form');
+							            return false;
+							        } */
 		});
+
+		/* 				function validateDonotSelect(value, element, param) {
+		 if (value == param) {
+		 return false;
+		 } else {
+		 return true;
+		 }
+		 }
+		 jQuery.validator.addMethod("do_not_select",
+		 validateDonotSelect, "Select an option");
+
+		 jQuery.validator.addMethod("phoneUS", function(phone_number,
+		 element) {
+		 phone_number = phone_number.replace(/\s+/g, "");
+
+		 return this.optional(element) || phone_number.length != 10
+		 && !phone_number.match(/[0-9 -()+]+$/);
+		 }, "Invalid phone number");
+
+		 $.validator.addMethod("dateHigher", function(value,
+		 element) {
+
+		 //If false, the validation fails and the message below is displayed
+
+		 var myDate = value;
+
+		 return Date.parse(myDate) > $("#leaveTo1").val();
+
+		 }, "Invalid request");
+		
+		 $.validator.addMethod("dateLower", function(value,
+		 element) {
+
+		 //If false, the validation fails and the message below is displayed
+
+		 var myDate = value;
+
+		 return Date.parse(myDate) < $("#leaveFrom1").val();
+
+		 }, "Invalid request");
+
+		 $('#leaveForm').validate({
+		 rules : {
+		 leaveType : {
+		 do_not_select : 'seLT'
+		 },
+		 purpose : {
+		 do_not_select : 'purp'
+		 },
+		 reportingManager : {
+		 do_not_select : 'rM'
+		 },
+		 mobile : {
+		 required : true,
+		 phoneUS : true
+
+		 },
+		 leaveCategory : {
+		 required : true
+
+		 },
+		 address : {
+		 required : true,
+		 rangelength : [ 50, 100 ]
+		 }
+		 },
+		 messages : {
+		 leaveType : {
+		 do_not_select : "Select a leave type"
+		 },
+		 purpose : {
+		 do_not_select : "Select a purpose"
+		 },
+		 reportingManager : {
+		 do_not_select : "Select a reporting manager"
+		 },
+		 mobile : {
+		 required : "required ",
+		 phoneUS : "Invalid  "
+
+		 },
+		 leaveCategory : {
+		 required : "Select a leave category"
+
+		 }
+		 },
+		 errorPlacement : function(error, element) {
+		 if (element.is(":radio")) {
+		 error.appendTo(element.parents('.containers'));
+		 } else { // This is the default behavior 
+		 error.insertAfter(element);
+		 }
+		 }
+		
+		 /* errorPlacement: $.datepicker.errorPlacement, 
+		 rules: { 
+		 validBeforeDatepicker: { 
+		 dpCompareDate: ['before', '#validAfterDatepicker'] 
+		 }, 
+		 validAfterDatepicker: { 
+		 dpCompareDate: {after: '#validBeforeDatepicker'} 
+		 } 
+		 } //
+		 }); */
 	});
-</script> -->
+</script>
 
 </head>
 
@@ -299,6 +466,22 @@
 	<%@include file="eheader.jsp"%>
 	<!-- /header -->
 
+	<section class="title">
+		<div class="container">
+			<div class="row-fluid">
+				<div class="span6">
+					<h3>Leave Apply</h3>
+				</div>
+				<div class="span6">
+					<ul class="breadcrumb pull-right">
+						<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+						<li><a href="#">Leave Management</a> <span class="divider">/</span></li>
+						<li class="active">Leave Apply</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
 	<!-- / .title -->
 
 	<section id="portfolio" class="container main">
@@ -343,21 +526,22 @@
 						style="color: black"><%=new java.util.Date()%></font></td>
 				</tr>
 			</table>
-
-			<table border="0" style="width: 100%;" class="table" >
+			<%-- class="datepicker" --%>
+			<table border="0" style="width: 100%" class="table">
 
 				<tr height="25px">
 					<td colspan="1" style="width: 30%; align: left;"><b>Leave
 							From </b><font color="red">*</font> <ff:input type="text"
 							path="leaveFrom" id="leaveFrom1" style="width: 30%"
-							class="datepicker" onchange="javascript:totalLeaveCheck();" />
+							onchange="javascript:totalLeaveCheck();"
+							class="required date dateHigher" /></td>
 					<td colspan="1" style="width: 30%; align: center;"><b>Leave
 							To </b><font color="red">*</font> <ff:input type="text"
 							path="leaveTo" id="leaveTo1" style="width: 30%"
-							class="datepicker" />
+							class="required date dateLower" /></td>
 					<td colspan="1" style="width: 30%; align: right;"><b>Total
 							day(s) &nbsp; :</b> <ff:input type="text" id="totalDays"
-							path="totalDays" style="width: 10%" /></td>
+							path="totalDays" style="width: 10%" readonly="true" /></td>
 				</tr>
 
 				<tr height="25px">
@@ -366,64 +550,67 @@
 							name="leaveType" id="leaveType1"
 							onchange="javascript:checkType();"
 							style="background-color:#FFFFFF">
-							<option>(Select an option)</option>
-							<option>CL</option>
-							<option>EL</option>
-							<option>OD</option>
-							<option>Compensatory Leave</option>
+							<option value='seLT'>(Select an option)</option>
+							<option value='cl'>CL</option>
+							<option value='el'>EL</option>
+							<option value='od'>OD</option>
+							<option value='comp'>Compensatory Leave</option>
 							<option>Others</option>
-						</ff:select> <ff:input path="description" id="description"
+						</ff:select> <ff:input type="text" path="description" id="description"
 							style="background-color:white;" placeholder="Description"
 							size="65" /></td>
-
+					<!-- <span id="lTypeMsg" style="color: red;"></span> -->
 					<td colspan="1" style="width: 10%; align: center;"><b>Purpose
 					</b><font color="red">*</font> <ff:select path="purpose" name="purpose"
 							style="background-color:white" id="purpose"
 							onchange="javascript:checkReason();">
-							<ff:options items="${leaveReasons}" />
-						</ff:select>
-						
-						 <ff:input path="reason" id="reason"
-							style="background-color:white;margin-left:60px;" placeholder="Description"
-							size="65"  /></td>
-
-					<td>Mobile: <ff:input type="text" path="mobile" size="10"
-							id="mobile" maxlength="10" style="height: 15px"
-							onkeydown="return ValidateMobNumber('mobile')" /><span
-						id="mobileError" style="color: red"></span><span id="mobileValid"
-						style="color: green"></span>
+							<option value='purp'>(Select an option)</option>
+							<option value='nfw'>Not feeling well</option>
+							<option value='urg'>I have some urgent work at home</option>
+							<option value='app'>I have appointment with doctor</option>
+							<option>Others</option>
+						</ff:select> <ff:input type="text" path="reason" id="reason"
+							style="background-color:white;" placeholder="Description"
+							size="65" /></td>
+					<!-- <span id="purpMsg" style="color: red;"></span> -->
+					<%-- <td><b>Mobile:</b> <ff:input type="text" name="mobile"
+							path="mobile" id="mobile" style="height: 15px" /></td> --%>
 				</tr>
-
+				<%-- onkeydown="return ValidateMobNumber('mobile')" --%>
 				<tr height="25px">
-					<td colspan="1" style="width: 10%; align: left;"><b>Leave
-							Category </b><font color="red">*</font> &nbsp;<ff:radiobutton
-							path="leaveCategory" name="leaveCategory"
-							onclick="javascript:leaveCategoryCheck();" id="lc1"
-							value="HalfDay" />Half Day &nbsp; <ff:radiobutton
+					<td class="groupwrap container" colspan="1"
+						style="width: 10%; align: left;"><b>Leave Category </b><font
+						color="red">*</font> &nbsp;<ff:radiobutton path="leaveCategory"
+							name="leaveCategory" onclick="javascript:leaveCategoryCheck();"
+							id="lc1" value="HalfDay" />Half Day &nbsp; <ff:radiobutton
 							onclick="javascript:leaveCategoryCheck();" name="leaveCategory"
 							id="lc2" path="leaveCategory" value="FullDay" />Full Day</td>
 
 					<td id="lvmeeting" colspan="1" style="width: 10%; align: center;"><b>Leave
-							Meeting &nbsp; : </b> &nbsp;<ff:radiobutton path="leaveMeeting"
-							id="fh" value="FirstHalf" />First Half &nbsp;<ff:radiobutton
-							id="sh" path="leaveMeeting" value="SecondHalf" />Second Half</td>
+							Meeting &nbsp; : </b> &nbsp;<ff:radiobutton name="leaveMeeting"
+							path="leaveMeeting" id="fh" value="FirstHalf" />First Half
+						&nbsp;<ff:radiobutton name="leaveMeeting" id="sh"
+							path="leaveMeeting" value="SecondHalf" />Second Half</td>
 
+					<td colspan="1" style="width: 10%; align: right;"><b>Address:</b>
+						<ff:input type="text" name="address" path="address" id="address"
+							style="background-color:white;" value="(type here)"
+							placeholder="(type here)" /></td>
 
-					<%-- <td>Mobile: <ff:input data-validation="number" type="text"
-							path="mobile" size="10" id="mobile" maxlength="10"
-							style="height: 15px"
-							onkeydown="return ValidateMobNumber('mobile')" /> --%>
 				</tr>
 
 				<tr height="25px">
 					<td colspan="1" style="width: 10%; align: left;"><b>Reporting
 							Manager &nbsp; : </b> <ff:select path="reportingManager"
-							style="background-color:#FFFFFF">
-							<ff:options items="${managerList}" />
+							name="reportingManager" style="background-color:#FFFFFF">
+							<option value='rM'>(Select an option)</option>
+							<option value='nfw'>Not feeling well</option>
+							<option value='urg'>I have some urgent work at home</option>
+							<option value='app'>I have appointment with doctor</option>
 						</ff:select></td>
 
 					<td colspan="1" style="width: 10%; align: center;"><b>CC
-							To &nbsp; : </b> <ff:select path="ccTo"
+							To &nbsp; : </b> <ff:select path="ccTo" name="ccTo"
 							style="background-color:#FFFFFF" multiple="true">
 							<ff:options items="${ccToList}" />
 						</ff:select></td>
@@ -431,9 +618,8 @@
 
 				<tr height="25px">
 					<td colspan="1" style="width: 10%; align: right;"><input
-						type="submit" value="Apply Leave" class="btn btn-info"
-						id="userRegistrationBt" /> <input type="reset" value="Clear"
-						class="btn btn-info" style="" /></td>
+						type="submit" value="Submit" class="btn btn-info" id="submit" />
+						<input type="reset" value="Clear" class="btn btn-info" style="" /></td>
 				</tr>
 			</table>
 		</ff:form>
@@ -499,40 +685,6 @@
 		<!--/Modal Body-->
 	</div>
 	<!--  /Login form -->
-	<script
-		src="${pageContext.request.contextPath}/js/vendor/jquery-1.9.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/vendor/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-	<script src="${pageContext.request.contextPath}/js/BeatPicker.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.datepicker').datepicker();
-			$("input[type='text'][id='leaveFrom1']").click(function() {
-				$("#myAlert").alert();
-			});
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.datepicker').datepicker();
-			$("input[type='text'][id='leaveTo1']").click(function() {
-				$("#myAlert").alert();
-			});
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input[type='text'][id='mobile']").click(function() {
-				$("#myAlert").alert();
-			});
-		});
-	</script>
-
 
 </body>
 </html>

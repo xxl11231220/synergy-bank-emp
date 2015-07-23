@@ -28,13 +28,13 @@ public class HolidayEntryDaoImpl extends JdbcDaoSupport implements
 
 	@Override
 	public String addHolidayEntry(HolidayEntryEntity holidayEntryEntity) {
-		String sql = "insert into holiday_entry_tbl values(?,?,?,?,?)";
-		Object[] data = new Object[] { holidayEntryEntity.getHolidayDate(),
+		String sql = "insert into holiday_entry_tbl values(?,?,?,?,?,?)";
+		Object[] data = new Object[] { holidayEntryEntity.getHolidayDate(), 
 				holidayEntryEntity.getWorking(),
 				holidayEntryEntity.getHoliday(),
 				holidayEntryEntity.getWeekend(),
 				holidayEntryEntity.getDescription() };
-		// firing the query
+		// firing the query  
 		super.getJdbcTemplate().update(sql, data);
 		return "Added";
 	}

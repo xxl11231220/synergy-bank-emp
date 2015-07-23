@@ -1,5 +1,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="ff"%>
 <%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,9 +25,12 @@
    font-size: 12px;
 }
       </style>
+       
+        
       
  <script>
    $(document).ready(function(){
+	   
 	   
 	   $('#springForm').validate({ // initialize the plugin
 	        rules: {
@@ -40,7 +47,53 @@
 	        }
 	    });
    });
+   
+  $(document).ready(function(){
+	  
+	  $("#departmentName").keyup(checkDepartment);
+	  
+	  });
+  $(document).ready(function(){
+  $('a').click(function (){ 
+	     hrefId = jQuery(this).attr("id"); 
+	     var resultRowId = $("#"+hrefId).closest('tr').attr("id");
+	     var depName = $("#"+resultRowId).children('td.data0');
+	     alert(depName)
+ 	     $.ajax({
+	        url: "${pageContext.request.contextPath}/admin/deleteDepartment",
+	        data:{"depName":depName},
+	        type:"get",
+	        success: function(response) {
+	            alert(response)
+	        }
+	     }) 
+	     return false; //for good measure
+	});
+  });
+  function checkDepartment(){
+	  
+	  var depName = $("#departmentName").val();
+	  $.ajax({
+		  
+		  url:"${pageContext.request.contextPath}/admin/validateDep",
+		  type: "GET",
+		  data :{"department": depName},
+		  success:function(result){
+			  if(result=="fail"){
+				  
+				  $("#errorMsg").show();
+			  }else{
+				  $("#errorMsg").hide();
+			  }
+		  }
+		  
+	  });
+	  
+  }
+  
    </script>
+    
+    
 </head>
 <body>
 
@@ -67,6 +120,8 @@
 
  <section id="portfolio" class="container main">   
 
+ 
+ 
 	<ff:form action="${pageContext.request.contextPath}/admin/addDepartmentTodb"
 					method="post" commandName="department"  id="springForm">
 					<fieldset>
@@ -74,7 +129,7 @@
 							<b><font color="darkblue">Add New Department</font></b>
 						</legend>
 						<br />
-						<table width="630" border="0" align="left">
+						<table width="425" border="0" align="left">
 							
 							<!-- <tr bgcolor="#66CCFF" style="color: #000000; font-weight: bold;">
 								<td>Designation Id</td>
@@ -83,12 +138,16 @@
 										  
 										</td> -->
 										<tr  style="color: #000000; font-weight: bold;">
+										
 								<td>Department Name <span style="color: red;font-weight: bold;font-size: 16px;">*</span></td>
 								<td>
 								<input  type="text" id="departmentName" class="error" name="departmentName"
 										size="10"  style="float:left;margin-right:10px;height: 15px"></input>
-								<p id="designationError" style="display: none;">Please Enter the Designation</p>		  
-										</td>
+										
+								</td>
+  
+								<span id="errorMsg" style="color: red;font-size: 12px; display:none;">Department already Exists</span>
+								  
 							</tr>
 							
 							<tr  style="color: #000000; font-weight: bold;">
@@ -120,7 +179,49 @@
 							 <tr bgcolor="white" style="color: #000000; font-weight: bold;">
 								<td><input type="submit" id="AddDepartment" class="btn btn-info" size="30" value="Add Department" ></input></td>
 							</tr>
+							<td colspan="2">&nbsp;</td>
+  
 						</table>
+						 
+													 
+					
+					 
+						<table  class="table table-bordered table-hover" width="100%" id="users">
+    <thead>
+      <tr class="ui-widget-header ">
+        <!-- <th><h5>departmentId</h5></th> -->
+        <th><h5>departmentName</h5></th>
+        <th><h5>departmentShortName</h5></th>
+        <th><h5>description	</h5></th>
+        <th><h5>doe</h5></th>
+        <th><h5>dom</h5></th>
+        <th><h5>entryBy</h5></th>
+        <th><h5>Modify</h5></th>
+        <!-- <th><button type="button" id="create-user" onclick="formPopup()"><span class="glyphicon glyphicon-plus"></span></button></th> -->
+      </tr>
+    </thead>
+    <tbody>
+    	<c:forEach var="item" items="${departmentForms}" varStatus="status">
+       <tr id="rowId${status.count}">
+        <td class="data0" align="left" valign="middle">${item.departmentName}</td>
+         <td>${item.departmentShortName}</td>
+        <td>${item.description}</td>
+        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.doe}" /></td>
+        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.dom}" /></td>
+        
+        <td>${item.entryBy }</td>
+        <td> <img name="jsbutton" src="${pageContext.request.contextPath}/images/edit.png" width="20" height="20" border="0" alt="javascript button">  &nbsp;&nbsp;
+         <a id="deleteRecord${status.count}"  href=""><img name="jsdbutton" src="${pageContext.request.contextPath}/images/delete.png" width="20" height="20" border="0" alt="javascript button"></img></a></td>
+         
+          <!-- <td><button type="submit" id="pd" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> </button></td>
+          <td><button type="submit" id="pdr" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> </button></td>  -->
+      </tr>
+     </c:forEach>
+    </tbody>
+   
+  </table>
+   
+  
 						<%-- <table width="630" border="0" align="left">
 							style="background-image: url(${pageContext.request.contextPath}/images/nhbg.jpg);">
 							
@@ -217,6 +318,7 @@
 </div>
 <!--  /Login form -->
 
+ 
   
 
 </body>

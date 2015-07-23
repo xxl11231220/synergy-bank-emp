@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import com.bas.admin.dao.entity.FaculityDailyAttendanceReportEntity;
 import com.bas.employee.dao.BasFacultyDao;
 import com.bas.employee.dao.entity.FaculityLeaveMasterEntity;
 import com.bas.employee.dao.entity.FacultyAttendStatusEntity;
@@ -51,6 +52,7 @@ public class BasFacultyDaoImpl extends JdbcDaoSupport implements BasFacultyDao {
 		super.getJdbcTemplate().update(sql, object);
 		return "Attendus Updated Success";
 	}
+
 	
 	@Override
 	public String deleteAttendus(String employeeId, String attndDate){
@@ -58,6 +60,14 @@ public class BasFacultyDaoImpl extends JdbcDaoSupport implements BasFacultyDao {
 		super.getJdbcTemplate().update(sql,new Object[]{employeeId,attndDate});
 		return "Attendus Deleted Successfuly";
 	}
+	
+	@Override
+	public List<String> selectDepartments(){
+		String sql = "Select departmentName from departments_tbl";
+		List<String> depList = super.getJdbcTemplate().queryForList(sql, String.class);		
+		return depList;
+	}
+
 
 
 	//put all the queries in the sql file
@@ -489,5 +499,23 @@ public class BasFacultyDaoImpl extends JdbcDaoSupport implements BasFacultyDao {
 								FaculityLeaveMasterEntity.class));
 		return facultyLeaveHistories;
 	}
+	
+	@Override
+	public List<FaculityDailyAttendanceReportEntity> showAttendusReport(String date){
+		String sql = "select att.fid, att.cdate, e.name, e.fatherName, e.department, att.intime, att.outtime, att.status, att.intimestatus, att.outtimestatus, att.present from faculity_att_tab as att,emp_db as e where (att.fid=e.id and cdate=?)";
+		System.out.println("I am showing Data");
+		List<FaculityDailyAttendanceReportEntity> fDARE = super.getJdbcTemplate().query(sql,new Object[]{date}, new BeanPropertyRowMapper<FaculityDailyAttendanceReportEntity>(FaculityDailyAttendanceReportEntity.class));
+		
+		return fDARE;
+	}
+
+	@Override
+	public List<FaculityDailyAttendanceReportEntity> showAttendusReportByDep(String date, String dep){
+		String sql = "select att.fid, att.cdate, e.name, e.fatherName, e.department, att.intime, att.outtime, att.status, att.intimestatus, att.outtimestatus, att.present from faculity_att_tab as att,emp_db as e where (att.fid=e.id and cdate=? and e.department=?)";
+		System.out.println("I am showing Data");
+		List<FaculityDailyAttendanceReportEntity> fDARE = super.getJdbcTemplate().query(sql,new Object[]{date, dep}, new BeanPropertyRowMapper<FaculityDailyAttendanceReportEntity>(FaculityDailyAttendanceReportEntity.class));		
+		return fDARE;
+	}
+
 
 }

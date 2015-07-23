@@ -32,7 +32,7 @@ public class LoginController {
 	
 	
 	@RequestMapping(value="/employeeHome",method=RequestMethod.GET)
-	public String employeeHome(){
+	public String employeeHome(){	
 		return NavigationConstant.EMPLOYEE_PREFIX_PAGE+NavigationConstant.EMPLOYEE_HOME_PAGE;
 	}
 	
@@ -73,14 +73,14 @@ public class LoginController {
 			BeanUtils.copyProperties(loginEntity, form);
 			if(loginEntity!=null &&  loginEntity.getRole()!=null && "user".equals(loginEntity.getRole())){
 				session.setAttribute(NavigationConstant.USER_SESSION_DATA, form);
-				return NavigationConstant.FACULTY_PREFIX_PAGE+NavigationConstant.FACULTY_HOME_PAGE;
+				return NavigationConstant.EMPLOYEE_PREFIX_PAGE+NavigationConstant.EMPLOYEE_HOME_PAGE;
 			}else if(loginEntity!=null &&  loginEntity.getRole()!=null && "admin".equals(loginEntity.getRole())){
 				session.setAttribute(NavigationConstant.USER_SESSION_DATA, form);
 				return NavigationConstant.ADMIN_PREFIX_PAGE+NavigationConstant.ADMIN_HOME_PAGE;
 		    }else if(loginEntity!=null &&  loginEntity.getRole()!=null && "userRM".equals(loginEntity.getRole())){
 		    	session.setAttribute(NavigationConstant.USER_SESSION_DATA, form);
 		    	model.addAttribute("role", "userRM");
-				return NavigationConstant.FACULTY_PREFIX_PAGE+NavigationConstant.FACULTY_HOME_PAGE;
+				return NavigationConstant.FACULTY_PREFIX_PAGE+NavigationConstant.EMPLOYEE_HOME_PAGE;
 		    }
 		    else{
 		    	session.setAttribute(NavigationConstant.USER_SESSION_DATA, form);

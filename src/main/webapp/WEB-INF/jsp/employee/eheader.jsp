@@ -40,7 +40,7 @@
                           <li><a href="blog.html">Calendar</a></li>
                             <li><a href="blog.html">Profile</a></li> 
                            <li><a href="blog.html">Setting</a></li>  
-                        <li><a href="contact-us.html">Logout</a></li>
+                        <li><a href="${pageContext.request.contextPath}/common/logout">Logout</a></li>
                       <li class="login">
                            <img alt="" src="${pageContext.request.contextPath}/images/user.jpg" width="40" height="40"  class="img-circle">
                            Hello Amit!

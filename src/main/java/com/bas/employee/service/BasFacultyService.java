@@ -3,6 +3,7 @@ package com.bas.employee.service;
 import java.util.Date;
 import java.util.List;
 
+import com.bas.admin.web.controller.form.FaculityDailyAttendanceReportVO;
 import com.bas.employee.web.controller.form.FaculityLeaveMasterVO;
 import com.bas.employee.web.controller.form.FaculityTimeForm;
 import com.bas.employee.web.controller.form.FacultyAttendStatusVO;
@@ -70,6 +71,13 @@ public interface BasFacultyService {
 			String monthInfo);
 
 	public String deleteAttendus(String employeeId, String attndDate);
+
+	public List<FaculityDailyAttendanceReportVO> showAttendusReport(String date);
+
+	public List<String> selectDepartments();
+
+	public List<FaculityDailyAttendanceReportVO> showAttendusReportByDep(String date,
+			String dep);
 
 //	public FaculityLeaveMasterVO findLeavesAppData(String string);
 	
